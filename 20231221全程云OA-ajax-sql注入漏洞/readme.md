@@ -6,7 +6,7 @@ oday-全程云OA-ajax-sql注入漏洞
 
 直接post请求即可
 
-poc 以及批量脚本已经上传圈子
+poc 以及批量脚本已经上传圈子(补充：0day poc圈子当天公布，github推迟两天公布)
 
 批量poc(记得安装库)
 
