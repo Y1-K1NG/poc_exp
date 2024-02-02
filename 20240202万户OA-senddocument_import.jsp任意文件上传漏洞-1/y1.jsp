@@ -1,0 +1,1 @@
+<%out.println("y1k1ng");new java.io.File(application.getRealPath(request.getServletPath())).delete();%>
