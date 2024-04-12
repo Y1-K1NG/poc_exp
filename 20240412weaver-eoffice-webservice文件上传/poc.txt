@@ -1,0 +1,17 @@
+上传文件：
+POST /webservice/upload/upload.php HTTP/1.1
+Host:
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:108.0) Gecko/20100101 Firefox/108.0
+Accept-Encoding: gzip, deflate, br
+Content-Type:multipart/form-data; boundary=--------------------------553898708333958420021355
+
+----------------------------553898708333958420021355
+Content-Disposition: form-data; name="file"; filename="qq_test.php4"
+Content-Type: application/octet-stream
+
+qqtest
+----------------------------553898708333958420021355--
+
+文件地址：
+/attachment/{{filepath}}
+filepath从响应里面获取，需要将响应中的*替换为/
